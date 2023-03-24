@@ -8,10 +8,18 @@
     <link rel = "stylesheet" href = "style.css">
 </head>
 <body>
-    <div id = "kontener">
-        <h1 style = "font-size: 100px">⇣</h1>
-        <a href = "loguj.php"><button>ZALOGUJ SIE!</button></a>
-    </div>
+    <br>
+    <br>
+    <center><div id = "header">
+        <h1>TESTOWA STRONA!</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Strona główna</a></li>
+                <li><a href="#">O nas</a></li>
+                <li><a href="#">Kontakt</a></li>
+            </ul>
+        </nav>
+    </div></center>
 </body>
 </html>
 
