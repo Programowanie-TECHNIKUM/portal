@@ -14,8 +14,8 @@
             $res = mysqli_query($c, "select * from gracze where Nick ='$login' and Pass = '$haslo'");
                 if(mysqli_num_rows($res) <> 0) {
                     $result = mysqli_fetch_array($c, $res);
-                    $_SESSION['kasiora'] = $rekord[4];
-                    $_SESSION['osoba'] = $rekord[1];
+                    $_SESSION['kasiora'] = $result[4];
+                    $_SESSION['osoba'] = $result[1];
                     header('location:gra.php');
                 } else {
                     $blad = '<span style = "color:red;font-size: 20px">! Bledny login lub haslo ! </span>';
