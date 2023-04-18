@@ -1,7 +1,7 @@
 # portal
 
 
-<h3>sql injections (without "")</h3>
+sql injections
 <br>
 "' or 1 = 1 -- "
 <br>
