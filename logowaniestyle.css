@@ -11,6 +11,13 @@
 
 }
 
+.logininput{
+    font-size: 20px;
+    border: 1px solid#1c1c1c;
+
+    border-radius: 25px;
+}
+
 .test{
     margin-top: 20%;
     position: relative;
@@ -21,6 +28,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+
+.loginbutton{
+    font-size: 20px;
+    border: 1px solid#1c1c1c;
+
+    border-radius: 25px;
 }
 
 h1 {
