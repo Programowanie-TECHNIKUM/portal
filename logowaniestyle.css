@@ -11,6 +11,11 @@
 
 }
 
+.blad {
+    font-size: 30px;
+    color: red;
+}
+
 .logininput{
     font-size: 20px;
     border: 1px solid#1c1c1c;

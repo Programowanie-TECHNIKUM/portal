@@ -34,13 +34,16 @@
             
         }
 
-        if($pass != $pass2) {
+        if($pass <> $pass2) {
             $dobrze = false;
             $blad3 = 'rozne hasla';
         }
 
 
         if($dobrze) {
+            $c = mysqli_connect('localhost', 'root', '', 'portal');
+            $r = mysqli_query($c, "INSERT INTO `gracze`(`Nick`, `Pass`, `imie`, `nazwisko`, `email`, `dataur`) VALUES ('$login', '$pass2', '$imie', '$nazwisko', '$email', '$data')");
+
             echo "rejestracja udana!";
         }
 
@@ -68,7 +71,7 @@
         <br>
         <?php
             if(isset($blad2)) {
-                echo '<span "color: red">'.$blad2.'</span>';
+                echo '<p class = "blad">'.$blad2.'</p>';
                 unset($blad2);
             }
         ?>
@@ -78,6 +81,12 @@
         <br>
         <input type = "password" placeholder="Powtorz haslo" name = "pass2" class = "logininput">
         <br>
+        <?php
+            if(isset($blad3)) {
+                echo '<p class = "blad">'.$blad3.'</p>';
+                unset($blad3);
+            }
+        ?>
         <br>
         <p style = "font-size: 20px">Wpisz swoja date urodzenia</p>
         <input type = "date" placeholder="Twoja data urodzenia" name = "data" class = "logininput">
