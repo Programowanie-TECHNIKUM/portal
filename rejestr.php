@@ -22,27 +22,46 @@
         $nazwisko = $_POST['nazwisko'];
         $data = $_POST['data'];
         $email = $_POST['email'];
+        require_once('db_connect.php');
+        $c = mysqli_connect($host, $user, $password, $db);
 
         if(strlen($login) < 3 || strlen($login) > 8) {
             $dobrze = false;
             $blad2 = 'Za dlugi lub za krotki nick';
+            unset($blad2);
         }
+
+
+        $nickquery = mysqli_query($c, "SELECT * FROM `gracze` WHERE nick like '$login'");
+
+        if(mysqli_num_rows($nickquery) <> 0) {
+            $dobrze = false;
+            $blad2 = 'Taki nick jest w bazie danych';
+            unset($blad2);
+        }
+    
 
         if(!ctype_alnum($login)) { // sprawdzanie znakow alfanumerycznych
             $dobrze = false;
             $blad2 = 'Login zawiera niewlasciwe znaki';
+            unset($blad2);
             
         }
 
         if($pass <> $pass2) {
             $dobrze = false;
             $blad3 = 'rozne hasla';
+            unset($blad3);
         }
 
 
         if($dobrze) {
+
+            $hash = password_hash($pass2, PASSWORD_DEFAULT);
+
+
             $c = mysqli_connect('localhost', 'root', '', 'portal');
-            $r = mysqli_query($c, "INSERT INTO `gracze`(`Nick`, `Pass`, `imie`, `nazwisko`, `email`, `dataur`) VALUES ('$login', '$pass2', '$imie', '$nazwisko', '$email', '$data')");
+            $r = mysqli_query($c, "INSERT INTO `gracze`(`Nick`, `Pass`, `imie`, `nazwisko`, `email`, `dataur`) VALUES ('$login', '$hash', '$imie', '$nazwisko', '$email', '$data')");
 
             echo "rejestracja udana!";
         }

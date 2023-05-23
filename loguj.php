@@ -11,13 +11,17 @@
             $haslo = $_POST['haslo'];
             $login = htmlentities($login, ENT_QUOTES,"UTF-8"); // anty sql-injection
             $haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8"); // anty sql-injection
+            $res = mysqli_query($c, "select * from gracze where Nick ='$login'");
 
-            $res = mysqli_query($c, "select * from gracze where Nick ='$login' and Pass = '$haslo'");
                 if(mysqli_num_rows($res) <> 0) {
                     $result = mysqli_fetch_array($res);
-                    $_SESSION['kasiora'] = $result[4];
-                    $_SESSION['osoba'] = $result[1];
-                    header('location:gra.php');
+                    print_r($result);
+                    if(password_verify($haslo, $result[2])) {
+                        $_SESSION['kasiora'] = $result[4];
+                        $_SESSION['osoba'] = $result[1];
+                        header('location:gra.php');
+                    }
+
                 } else {
                     $blad = '<span style = "color:red;font-size: 20px">! Bledny login lub haslo ! </span>';
 
