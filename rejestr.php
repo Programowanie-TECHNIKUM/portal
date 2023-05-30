@@ -12,6 +12,8 @@
 <body>
 <?php
 
+    session_start();
+
     if(isset($_POST['login'])) {
 
         $dobrze = true;
@@ -28,7 +30,6 @@
         if(strlen($login) < 3 || strlen($login) > 8) {
             $dobrze = false;
             $blad2 = 'Za dlugi lub za krotki nick';
-            unset($blad2);
         }
 
 
@@ -37,21 +38,18 @@
         if(mysqli_num_rows($nickquery) <> 0) {
             $dobrze = false;
             $blad2 = 'Taki nick jest w bazie danych';
-            unset($blad2);
         }
     
 
         if(!ctype_alnum($login)) { // sprawdzanie znakow alfanumerycznych
             $dobrze = false;
             $blad2 = 'Login zawiera niewlasciwe znaki';
-            unset($blad2);
             
         }
 
         if($pass <> $pass2) {
             $dobrze = false;
             $blad3 = 'rozne hasla';
-            unset($blad3);
         }
 
 
@@ -63,7 +61,8 @@
             $c = mysqli_connect('localhost', 'root', '', 'portal');
             $r = mysqli_query($c, "INSERT INTO `gracze`(`Nick`, `Pass`, `imie`, `nazwisko`, `email`, `dataur`) VALUES ('$login', '$hash', '$imie', '$nazwisko', '$email', '$data')");
 
-            echo "rejestracja udana!";
+            $_SESSION['udanerejestr'] = true;
+            header('location:loguj.php');
         }
 
 

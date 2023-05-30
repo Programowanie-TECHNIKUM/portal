@@ -1,9 +1,19 @@
 
 
 <?php
+
+    session_start();
+
+
+    if(isset($_SESSION['auth'])) {
+        if($_SESSION['auth'] == true) {
+            header('location:gra.php');
+        }
+    }
+
+
     if(isset($_POST['login'])) {
         if(isset($_POST['haslo'])) {
-            session_start();
 
             require_once "db_connect.php";
             $c = mysqli_connect($host, $user, $password, $db);
@@ -20,6 +30,8 @@
                         $_SESSION['kasiora'] = $result[4];
                         $_SESSION['osoba'] = $result[1];
                         header('location:gra.php');
+                    } else {
+                        $blad = '<span style = "color:red;font-size: 20px">! Bledny login lub haslo ! </span>';
                     }
 
                 } else {
@@ -42,6 +54,12 @@
 <div id = "login">
     <h1>Logowanie</h1>
     <form method = "POST">
+        <?php
+            if(isset($_SESSION['udanerejestr'])) {
+                echo "<p>Pomyslnie sie zarejestrowales!</p>";
+                unset($_SESSION['udanerejestr']);
+            }
+        ?>
         <input type = "text" placeholder="Wpisz swoj nick" name = "login" class = "logininput">
         <br>
         <br>
@@ -51,6 +69,7 @@
         <?php
             if(isset($blad)) {
                 echo $blad;
+                unset($blad);
             }
         ?>
         <br>
