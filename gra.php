@@ -1,14 +1,4 @@
-<?php
-    session_start();
 
-    $_SESSION['auth'] = true;
-    
-    if(!isset($_SESSION['osoba'])) {
-        header('location:loguj.php');
-    }
-
-    echo $_SESSION['osoba'] .' ma '.$_SESSION['kasiora'].' pieniedzy';
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +9,26 @@
     <title>Document</title>
 </head>
 <body>
+    <form method="post" action="wyloguj.php">
+        <button>Wyloguj!</button>
+    </form>
+</body>
 
 </body>
 </html>
+
+<?php
+    session_start();
+
+    
+    if(!isset($_SESSION['osoba'])) {
+        unset($_SESSION['auth']);
+        $_SESSION['unauth'] = true;
+        header('location: loguj.php');
+    }
+
+    $_SESSION['auth'] = true;
+
+    echo $_SESSION['osoba'] .' ma '.$_SESSION['kasiora'].' pieniedzy';  
+
+?>

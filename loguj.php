@@ -5,11 +5,13 @@
     session_start();
 
 
-    if(isset($_SESSION['auth'])) {
+    if(isset($_SESSION['auth']) && $_SESSION['unauth'] != true) {
+        unset($_SESSION['unauth']);
         if($_SESSION['auth'] == true) {
             header('location:gra.php');
         }
     }
+    
 
 
     if(isset($_POST['login'])) {
@@ -58,6 +60,12 @@
             if(isset($_SESSION['udanerejestr'])) {
                 echo "<p>Pomyslnie sie zarejestrowales!</p>";
                 unset($_SESSION['udanerejestr']);
+            }
+        ?>
+        <?php
+            if(isset($_SESSION['unauth'])) {
+                echo "<p>Sesja wygasla!</p>";
+                unset($_SESSION['unauth']);
             }
         ?>
         <input type = "text" placeholder="Wpisz swoj nick" name = "login" class = "logininput">
